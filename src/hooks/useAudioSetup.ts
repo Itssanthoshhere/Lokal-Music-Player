@@ -41,7 +41,10 @@ export function useAudioSetup() {
     prevSongIdRef.current = currentSong.id;
     hasEndedRef.current = false;
 
-    const url = getDownloadUrl(currentSong.downloadUrl, '160kbps');
+    // Check if song is downloaded
+    const downloads = usePlayerStore.getState().downloads;
+    const localUri = downloads[currentSong.id];
+    const url = localUri || getDownloadUrl(currentSong.downloadUrl, '160kbps');
     if (!url) {
       setPlaybackState('error');
       return;

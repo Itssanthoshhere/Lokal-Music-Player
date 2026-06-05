@@ -1,127 +1,40 @@
-# Lokal Music Player — Initial Project Setup
+# Lokal Music Player Source & Installations
 
-## Create Expo React Native App
+This file outlines all the core dependencies and native modules installed in the project, and their sources.
 
-```bash
-npx create-expo-app lokal-music-player -t expo-template-blank-typescript
-```
+## Core React Native & Expo
+- `expo` (~56.0.8): The core Expo framework for building universal React apps.
+- `react` (19.2.3): React library.
+- `react-native` (0.85.3): React Native framework.
 
-Move into the project directory:
+## Audio & Media
+- `expo-audio` (~56.0.11): Powers the audio playback engine, providing background audio, seeking, and status updates.
 
-```bash
-cd lokal-music-player
-```
+## File System & Storage
+- `expo-file-system` (~56.0.7): Handles the native file system access for downloading and saving offline MP3s.
+- `react-native-mmkv` (^4.3.1): High-performance, synchronous key-value storage used to persist Zustand state (favorites, queue, downloads).
+- `react-native-nitro-modules` (^0.35.9): Dependency required by MMKV for ultra-fast C++ native module access.
 
----
+## State Management & Networking
+- `zustand` (^5.0.14): A small, fast, and scalable bearbones state-management solution used for the global `playerStore`.
+- `axios` (^1.17.0): Promise based HTTP client used to interface with the JioSaavn music API.
 
-# Install State Management & API Packages
+## Navigation
+- `@react-navigation/native` (^7.2.5): Core routing and navigation wrapper.
+- `@react-navigation/native-stack` (^7.16.0): Native stack navigator for screen transitions (like Player and Queue modals).
+- `react-native-screens` (4.25.2): Provides native navigation primitives.
 
-```bash
-npm install zustand axios
-```
+## UI & Interactions
+- `@expo/vector-icons` (^15.0.2): Pre-packaged icon sets (Ionicons) used throughout the app.
+- `expo-linear-gradient` (~56.0.4): Provides smooth gradient backgrounds (used in Player Screen).
+- `expo-status-bar` (~56.0.4): Controls the app status bar style.
+- `react-native-draggable-flatlist` (^4.0.3): Powers the drag-and-drop reordering functionality in the Queue screen.
+- `react-native-gesture-handler` (~2.31.1): Required by draggable flatlist and navigation for fluid touch interactions.
+- `react-native-reanimated` (4.3.1): Used for complex animations and transitions.
+- `react-native-safe-area-context` (~5.7.0): Handles safe area insets (notches, dynamic islands, home indicators).
 
-### Packages
+## Installation Details
+If spinning this project up from scratch, these can be installed via:
+`npx expo install expo-audio expo-file-system expo-linear-gradient expo-status-bar @expo/vector-icons react-native-safe-area-context react-native-screens react-native-gesture-handler react-native-reanimated`
 
-* **Zustand** → Lightweight state management
-* **Axios** → API requests and data fetching
-
----
-
-# Install React Navigation
-
-```bash
-npm install @react-navigation/native
-npm install @react-navigation/native-stack
-```
-
----
-
-# Install Navigation Dependencies
-
-```bash
-npx expo install react-native-screens
-npx expo install react-native-safe-area-context
-```
-
-### Packages
-
-* **react-native-screens** → Optimized screen rendering
-* **react-native-safe-area-context** → Safe area handling for modern devices
-
----
-
-# Install Audio Playback & Persistence
-
-```bash
-npx expo install expo-audio react-native-mmkv react-native-gesture-handler react-native-reanimated react-native-draggable-flatlist
-```
-
-### Packages
-
-* **expo-audio** → Audio playback and background execution support
-* **react-native-mmkv** → Extremely fast synchronous local storage
-* **react-native-draggable-flatlist** → Drag to reorder support for the queue
-
----
-
-# Start Development Server
-
-```bash
-npx expo start
-```
-
----
-
-# Run on Device
-
-### Android
-
-```bash
-npx expo start --android
-```
-
-### iOS
-
-```bash
-npx expo start --ios
-```
-
-### Web
-
-```bash
-npx expo start --web
-```
-
----
-
-### Android Build
-
-```bash
-eas build --platform android
-```
-
-### iOS Build
-
-```bash
-eas build --platform ios
-```
-
-### Both Platforms
-
-```bash
-eas build --platform all
-```
-
----
-
-# Project Stack
-
-```txt
-Framework        : Expo + React Native
-Language         : TypeScript
-Navigation       : React Navigation
-State Management : Zustand
-API Client       : Axios
-Audio Playback   : Expo Audio
-Storage          : MMKV
-```
+`npm install zustand axios react-native-mmkv react-native-draggable-flatlist @react-navigation/native @react-navigation/native-stack react-native-nitro-modules`

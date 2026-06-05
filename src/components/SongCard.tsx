@@ -16,16 +16,19 @@ import { usePlayerStore } from '../store/playerStore';
 interface SongCardProps {
   song: Song;
   onPress: (song: Song) => void;
+  onOptionsPress?: (song: Song) => void;
   showDuration?: boolean;
 }
 
 const SongCardComponent: React.FC<SongCardProps> = ({
   song,
   onPress,
+  onOptionsPress,
   showDuration = true,
 }) => {
   const currentSongId = usePlayerStore((s) => s.currentSong?.id);
   const playbackState = usePlayerStore((s) => s.playbackState);
+  const isDownloaded = usePlayerStore((s) => !!s.downloads[song.id]);
   const isPlaying = currentSongId === song.id;
   const imageUrl = getImageUrl(song.image, '150x150');
   const artistName = getArtistNames(song.artists);
@@ -56,12 +59,17 @@ const SongCardComponent: React.FC<SongCardProps> = ({
       </View>
 
       <View style={styles.info}>
-        <Text
-          style={[styles.title, isPlaying && styles.titleActive]}
-          numberOfLines={1}
-        >
-          {song.name}
-        </Text>
+        <View style={styles.titleRow}>
+          <Text
+            style={[styles.title, isPlaying && styles.titleActive]}
+            numberOfLines={1}
+          >
+            {song.name}
+          </Text>
+          {isDownloaded && (
+            <Ionicons name="cloud-done" size={12} color={colors.success} style={{ marginLeft: 4 }} />
+          )}
+        </View>
         <Text style={styles.artist} numberOfLines={1}>
           {artistName}
         </Text>
@@ -74,6 +82,7 @@ const SongCardComponent: React.FC<SongCardProps> = ({
       <TouchableOpacity
         style={styles.moreButton}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        onPress={() => onOptionsPress?.(song)}
       >
         <Ionicons
           name="ellipsis-vertical"
@@ -128,13 +137,17 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     justifyContent: 'center',
-    marginRight: spacing.sm,
+    marginRight: spacing.md,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
   },
   title: {
     ...typography.caption,
     fontWeight: '500',
     color: colors.textPrimary,
-    marginBottom: 2,
   },
   titleActive: {
     color: colors.primary,

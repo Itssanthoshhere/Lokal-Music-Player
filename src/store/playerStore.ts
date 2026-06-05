@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import * as FileSystem from 'expo-file-system/legacy';
 import { Song, RepeatMode, PlaybackState } from '../types';
 import { searchSongs as searchSongsApi } from '../api/songs';
+import { getDownloadUrl } from '../utils/getImageUrl';
 import { zustandStorage } from './storage';
 
 interface PlayerState {
@@ -19,6 +21,13 @@ interface PlayerState {
   // Modes
   repeatMode: RepeatMode;
   shuffleMode: boolean;
+
+  // Favorites
+  favorites: Song[];
+
+  // Downloads (songId -> local file URI)
+  downloads: Record<string, string>;
+  isDownloading: Record<string, boolean>;
 
   // Search
   searchQuery: string;
@@ -41,6 +50,7 @@ interface PlayerState {
 
   // Queue actions
   addToQueue: (song: Song) => void;
+  insertNext: (song: Song) => void;
   removeFromQueue: (index: number) => void;
   reorderQueue: (fromIndex: number, toIndex: number) => void;
   clearQueue: () => void;
@@ -49,6 +59,13 @@ interface PlayerState {
   // Mode actions
   toggleRepeat: () => void;
   toggleShuffle: () => void;
+
+  // Favorite actions
+  toggleFavorite: (song: Song) => void;
+
+  // Download actions
+  downloadSong: (song: Song) => Promise<void>;
+  removeDownload: (song: Song) => Promise<void>;
 
   // Search actions
   setSearchQuery: (query: string) => void;
@@ -79,6 +96,9 @@ export const usePlayerStore = create<PlayerState>()(
       originalQueue: [],
       repeatMode: 'off',
       shuffleMode: false,
+      favorites: [],
+      downloads: {},
+      isDownloading: {},
       searchQuery: '',
       searchResults: [],
       searchPage: 0,
@@ -197,6 +217,28 @@ export const usePlayerStore = create<PlayerState>()(
         set({
           queue: newQueue,
           originalQueue: shuffleMode ? [...originalQueue, song] : newQueue,
+        });
+      },
+
+      insertNext: (song) => {
+        const { queue, queueIndex, originalQueue, shuffleMode } = get();
+        const exists = queue.some((s) => s.id === song.id);
+        if (exists) return;
+
+        const newQueue = [...queue];
+        const insertAt = queueIndex >= 0 ? queueIndex + 1 : 0;
+        newQueue.splice(insertAt, 0, song);
+
+        let newOriginalQueue = [...originalQueue];
+        if (shuffleMode) {
+           newOriginalQueue.push(song);
+        } else {
+           newOriginalQueue = newQueue;
+        }
+
+        set({
+          queue: newQueue,
+          originalQueue: newOriginalQueue,
         });
       },
 
@@ -328,6 +370,66 @@ export const usePlayerStore = create<PlayerState>()(
         }
       },
 
+      // Favorite actions
+      toggleFavorite: (song) => {
+        const { favorites } = get();
+        const exists = favorites.some((s) => s.id === song.id);
+        
+        if (exists) {
+          set({ favorites: favorites.filter((s) => s.id !== song.id) });
+        } else {
+          set({ favorites: [...favorites, song] });
+        }
+      },
+
+      // Download actions
+      downloadSong: async (song) => {
+        const url = getDownloadUrl(song.downloadUrl, '320kbps') || getDownloadUrl(song.downloadUrl, '160kbps');
+        if (!url) return;
+
+        set((state) => ({
+          isDownloading: { ...state.isDownloading, [song.id]: true }
+        }));
+
+        try {
+          const fileUri = `${FileSystem.documentDirectory}${song.id}.mp3`;
+          const result = await FileSystem.downloadAsync(url, fileUri);
+          
+          if (result.status === 200) {
+            set((state) => ({
+              downloads: { ...state.downloads, [song.id]: result.uri },
+              isDownloading: { ...state.isDownloading, [song.id]: false }
+            }));
+          } else {
+            throw new Error('Download failed');
+          }
+        } catch (error) {
+          console.error('[Download Error]', error);
+          set((state) => ({
+            isDownloading: { ...state.isDownloading, [song.id]: false }
+          }));
+        }
+      },
+
+      removeDownload: async (song) => {
+        const { downloads } = get();
+        const fileUri = downloads[song.id];
+
+        if (!fileUri) return;
+
+        try {
+          await FileSystem.deleteAsync(fileUri, { idempotent: true });
+          
+          set((state) => {
+            const newDownloads = { ...state.downloads };
+            delete newDownloads[song.id];
+            return { downloads: newDownloads };
+          });
+        } catch (error) {
+          console.error('[Remove Download Error]', error);
+        }
+      },
+
       // Search actions
       setSearchQuery: (query) => set({ searchQuery: query }),
 
@@ -390,6 +492,8 @@ export const usePlayerStore = create<PlayerState>()(
         queueIndex: state.queueIndex,
         repeatMode: state.repeatMode,
         shuffleMode: state.shuffleMode,
+        favorites: state.favorites,
+        downloads: state.downloads,
       }),
     }
   )
