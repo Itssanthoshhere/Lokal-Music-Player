@@ -2,7 +2,7 @@
 
 ## 🎵 Lokal Music Player
 
-### A Production-Quality Music Streaming App Built with React Native, Expo & JioSaavn API
+#### A Production-Quality Music Streaming App Built with React Native, Expo & JioSaavn API
 
 ![React Native](https://img.shields.io/badge/React%20Native-0.82-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Expo](https://img.shields.io/badge/Expo-SDK%2056-000020?style=for-the-badge&logo=expo&logoColor=white)
@@ -10,7 +10,7 @@
 ![Zustand](https://img.shields.io/badge/Zustand-State%20Management-000000?style=for-the-badge)
 ![MMKV](https://img.shields.io/badge/MMKV-Storage-orange?style=for-the-badge)
 
-> 🎧 Built as part of the Lokal - React Native Internship Assignment
+> 🎧 Built as part of the Lokal React Native Internship Assignment
 
 <div align="center">
 
@@ -29,6 +29,8 @@
 - ✨ Features
 - 🛠️ Tech Stack
 - 🏗️ Architecture
+- ⚖️ Trade-offs & Decisions
+- ✅ Assignment Requirements Checklist
 - 📁 Project Structure
 - 📱 Screens
 - 🧠 State Management
@@ -36,7 +38,6 @@
 - 📥 Offline Downloads
 - 🚀 Installation
 - 📱 Running The Project
-- 🎯 Key Engineering Decisions
 - 🔮 Future Enhancements
 - 👨‍💻 Author
 - 📜 License
@@ -162,19 +163,19 @@ Audio playback continues when:
 
 # 🛠️ Tech Stack
 
-| Category          | Technology          |
-| ----------------- | ------------------- |
-| Framework         | React Native        |
-| Runtime           | Expo SDK 56         |
-| Language          | TypeScript          |
-| Navigation        | React Navigation v7 |
-| State Management  | Zustand             |
-| Storage           | MMKV                |
-| Networking        | Axios               |
-| Audio Playback    | Expo Audio          |
-| Offline Downloads | Expo File System    |
-| Animations        | Reanimated          |
-| Queue Reordering  | Draggable FlatList  |
+| Category          | Technology                      |
+| ----------------- | ------------------------------- |
+| Framework         | React Native                    |
+| Runtime           | Expo SDK 56                     |
+| Language          | TypeScript                      |
+| Navigation        | React Navigation v7             |
+| State Management  | Zustand                         |
+| Storage           | MMKV                            |
+| Networking        | Axios                           |
+| Audio Playback    | Expo Audio                      |
+| Offline Downloads | Expo File System                |
+| Animations        | React Native Reanimated         |
+| Queue Reordering  | React Native Draggable FlatList |
 
 ---
 
@@ -199,7 +200,7 @@ Audio Service Layer
 
         ↓
 
-Local Storage (MMKV)
+MMKV Storage
 
         ↓
 
@@ -214,6 +215,99 @@ This ensures:
 - Perfect synchronization
 - Minimal re-renders
 - Better maintainability
+
+---
+
+# ⚖️ Trade-offs & Decisions
+
+During development, the focus was on building a reliable and maintainable music player while avoiding unnecessary complexity.
+
+### Zustand over Redux Toolkit
+
+**Decision:** Zustand
+
+**Reason:**
+The application requires a lightweight global store for playback synchronization across Home, Mini Player, Full Player, and Queue screens.
+
+**Trade-off:**
+Redux Toolkit provides more structure and tooling, but introduces additional boilerplate that was unnecessary for the scope of this assignment.
+
+---
+
+### MMKV over AsyncStorage
+
+**Decision:** MMKV
+
+**Reason:**
+Queue state, playback preferences, and downloaded song metadata require fast local persistence.
+
+**Trade-off:**
+MMKV requires native setup but provides significantly better performance than AsyncStorage.
+
+---
+
+### Expo Audio over Expo AV
+
+**Decision:** Expo Audio
+
+**Reason:**
+Expo Audio is the recommended audio solution for Expo SDK 56 and provides a modern playback API.
+
+**Trade-off:**
+Background playback requires a development build and cannot be fully tested inside Expo Go.
+
+---
+
+### Single Global Player Store
+
+**Decision:** Centralized Zustand Store
+
+**Reason:**
+Mini Player and Full Player must always remain synchronized.
+
+**Trade-off:**
+A global store slightly increases coupling, but greatly simplifies synchronization and state consistency.
+
+---
+
+### Offline Downloads
+
+**Decision:** Local file downloads using Expo File System
+
+**Reason:**
+Offline listening was implemented as a bonus feature to improve user experience.
+
+**Trade-off:**
+Downloaded audio increases device storage usage, but provides uninterrupted playback without internet connectivity.
+
+---
+
+# ✅ Assignment Requirements Checklist
+
+### Core Requirements
+
+- [x] React Native (Expo)
+- [x] TypeScript
+- [x] React Navigation v6+
+- [x] Zustand State Management
+- [x] MMKV Persistence
+- [x] JioSaavn API Integration
+- [x] Home Screen
+- [x] Song Search
+- [x] Pagination
+- [x] Full Player
+- [x] Mini Player
+- [x] Queue Management
+- [x] Background Playback
+- [x] Local Persistence
+- [x] No Mock Data
+
+### Bonus Requirements
+
+- [x] Shuffle Mode
+- [x] Repeat Mode
+- [x] Offline Downloads
+- [x] Downloaded Song Playback
 
 ---
 
@@ -277,14 +371,21 @@ src/
 - Loading states
 - Empty states
 
+### Features
+
+- Debounced search
+- Pagination
+- Real API integration
+- Fast rendering
+
 ---
 
 ## 🎵 Full Player Screen
 
-- Large artwork display
-- Song metadata
-- Interactive seek bar
+- Large album artwork
+- Song information
 - Playback controls
+- Seek bar
 - Shuffle mode
 - Repeat mode
 
@@ -292,16 +393,16 @@ src/
 
 ## 📌 Mini Player
 
-- Persistent bottom player
-- Quick playback controls
-- Tap to open full player
+- Persistent playback controls
+- Real-time synchronization
+- Expand to full player
 
 ---
 
 ## 📋 Queue Screen
 
 - Current queue display
-- Reordering support
+- Song reordering
 - Remove songs
 - Queue persistence
 
@@ -422,45 +523,7 @@ npx expo run:android
 npx expo run:ios
 ```
 
-> Background playback requires a Development Build and will not work in Expo Go.
-
----
-
-# 🎯 Key Engineering Decisions
-
-## Why Zustand?
-
-- Simpler than Redux Toolkit
-- Less boilerplate
-- Better developer experience
-- Faster implementation
-
----
-
-## Why MMKV?
-
-- Faster than AsyncStorage
-- Synchronous reads
-- Better performance
-- Excellent for queue persistence
-
----
-
-## Why Expo Audio?
-
-- Recommended replacement for Expo AV
-- Better SDK 56 compatibility
-- Modern playback APIs
-- Reliable background playback support
-
----
-
-## Why Offline Downloads?
-
-- Meets assignment bonus requirements
-- Improves user experience
-- Enables listening without internet
-- Demonstrates advanced mobile development concepts
+> Background playback requires a Development Build and will not work inside Expo Go.
 
 ---
 
@@ -475,6 +538,7 @@ npx expo run:ios
 - Album Pages
 - Equalizer Controls
 - Sleep Timer
+- Crossfade Playback
 
 ---
 
@@ -482,9 +546,9 @@ npx expo run:ios
 
 ### V S Santhosh
 
-- **GitHub**: https://github.com/Itssanthoshhere
-- **LinkedIn**: https://linkedin.com/in/thesanthoshvs
-- **Portfolio**: https://santhosh-vs-portfolio.vercel.app
+- GitHub: https://github.com/Itssanthoshhere
+- LinkedIn: https://linkedin.com/in/thesanthoshvs
+- Portfolio: https://santhosh-vs-portfolio.vercel.app
 
 ---
 
@@ -492,13 +556,11 @@ npx expo run:ios
 
 This project was developed as part of the Lokal React Native Internship Assignment.
 
-The project is intended for educational, evaluation, and portfolio purposes.
+For educational, evaluation, and portfolio purposes.
 
 ---
 
 <div align="center">
-
-⭐ If you found this project interesting, consider starring the repository.
 
 Built with ❤️ by V S Santhosh
 
