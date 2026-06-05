@@ -1,40 +1,264 @@
-# Lokal Music Player Source & Installations
+# Lokal Music Player — Initial Project Setup
 
-This file outlines all the core dependencies and native modules installed in the project, and their sources.
+## Create Expo React Native App
 
-## Core React Native & Expo
-- `expo` (~56.0.8): The core Expo framework for building universal React apps.
-- `react` (19.2.3): React library.
-- `react-native` (0.85.3): React Native framework.
+```bash
+npx create-expo-app lokal-music-player -t expo-template-blank-typescript
+```
 
-## Audio & Media
-- `expo-audio` (~56.0.11): Powers the audio playback engine, providing background audio, seeking, and status updates.
+Move into the project directory:
 
-## File System & Storage
-- `expo-file-system` (~56.0.7): Handles the native file system access for downloading and saving offline MP3s.
-- `react-native-mmkv` (^4.3.1): High-performance, synchronous key-value storage used to persist Zustand state (favorites, queue, downloads).
-- `react-native-nitro-modules` (^0.35.9): Dependency required by MMKV for ultra-fast C++ native module access.
+```bash
+cd lokal-music-player
+```
 
-## State Management & Networking
-- `zustand` (^5.0.14): A small, fast, and scalable bearbones state-management solution used for the global `playerStore`.
-- `axios` (^1.17.0): Promise based HTTP client used to interface with the JioSaavn music API.
+---
 
-## Navigation
-- `@react-navigation/native` (^7.2.5): Core routing and navigation wrapper.
-- `@react-navigation/native-stack` (^7.16.0): Native stack navigator for screen transitions (like Player and Queue modals).
-- `react-native-screens` (4.25.2): Provides native navigation primitives.
+# Install State Management & Networking
 
-## UI & Interactions
-- `@expo/vector-icons` (^15.0.2): Pre-packaged icon sets (Ionicons) used throughout the app.
-- `expo-linear-gradient` (~56.0.4): Provides smooth gradient backgrounds (used in Player Screen).
-- `expo-status-bar` (~56.0.4): Controls the app status bar style.
-- `react-native-draggable-flatlist` (^4.0.3): Powers the drag-and-drop reordering functionality in the Queue screen.
-- `react-native-gesture-handler` (~2.31.1): Required by draggable flatlist and navigation for fluid touch interactions.
-- `react-native-reanimated` (4.3.1): Used for complex animations and transitions.
-- `react-native-safe-area-context` (~5.7.0): Handles safe area insets (notches, dynamic islands, home indicators).
+```bash
+npm install zustand axios
+```
 
-## Installation Details
-If spinning this project up from scratch, these can be installed via:
-`npx expo install expo-audio expo-file-system expo-linear-gradient expo-status-bar @expo/vector-icons react-native-safe-area-context react-native-screens react-native-gesture-handler react-native-reanimated`
+### Packages
 
-`npm install zustand axios react-native-mmkv react-native-draggable-flatlist @react-navigation/native @react-navigation/native-stack react-native-nitro-modules`
+* **Zustand** → Lightweight global state management
+* **Axios** → API requests and data fetching
+
+---
+
+# Install React Navigation
+
+```bash
+npm install @react-navigation/native
+npm install @react-navigation/native-stack
+```
+
+---
+
+# Install Expo & React Native Dependencies
+
+```bash
+npx expo install react-native-screens
+npx expo install react-native-safe-area-context
+npx expo install react-native-gesture-handler
+npx expo install react-native-reanimated
+```
+
+### Packages
+
+* **react-native-screens** → Optimized screen rendering
+* **react-native-safe-area-context** → Safe area handling
+* **react-native-gesture-handler** → Gesture support
+* **react-native-reanimated** → High-performance animations
+
+---
+
+# Install Audio & Media
+
+```bash
+npx expo install expo-audio
+npx expo install expo-file-system
+```
+
+### Packages
+
+* **expo-audio** → Music playback engine
+* **expo-file-system** → Downloading and storing offline music
+
+---
+
+# Install UI Dependencies
+
+```bash
+npx expo install expo-linear-gradient
+npx expo install expo-status-bar
+npx expo install @expo/vector-icons
+```
+
+### Packages
+
+* **expo-linear-gradient** → Gradient backgrounds
+* **expo-status-bar** → Status bar customization
+* **@expo/vector-icons** → Ionicons and icon packs
+
+---
+
+# Install Storage & Queue Management
+
+```bash
+npm install react-native-mmkv
+npm install react-native-nitro-modules
+npm install react-native-draggable-flatlist
+```
+
+### Packages
+
+* **react-native-mmkv** → Ultra-fast local storage
+* **react-native-nitro-modules** → Required by MMKV
+* **react-native-draggable-flatlist** → Drag-and-drop queue reordering
+
+---
+
+# One Command Installation (Alternative)
+
+## Expo Packages
+
+```bash
+npx expo install expo-audio expo-file-system expo-linear-gradient expo-status-bar @expo/vector-icons react-native-safe-area-context react-native-screens react-native-gesture-handler react-native-reanimated
+```
+
+## NPM Packages
+
+```bash
+npm install zustand axios react-native-mmkv react-native-draggable-flatlist @react-navigation/native @react-navigation/native-stack react-native-nitro-modules
+```
+
+---
+
+# Start Development Server
+
+```bash
+npx expo start
+```
+
+---
+
+# Run on Device
+
+### Android
+
+```bash
+npx expo start --android
+```
+
+### iOS
+
+```bash
+npx expo start --ios
+```
+
+### Web
+
+```bash
+npx expo start --web
+```
+
+---
+
+# EAS Build Setup
+
+Install EAS CLI globally:
+
+```bash
+npm install -g eas-cli
+```
+
+Login to Expo Account:
+
+```bash
+eas login
+```
+
+Configure EAS Build:
+
+```bash
+eas build:configure
+```
+
+### Configuration Steps
+
+```txt
+✔ Would you like to automatically create an EAS project? → Yes
+✔ Created project on Expo EAS
+✔ Linked local project to EAS project
+✔ Which platforms would you like to configure for EAS Build? → All
+✔ Generated eas.json
+🎉 Your project is ready to build
+```
+
+---
+
+# First Android Build
+
+Generate a preview APK build:
+
+```bash
+eas build -p android --profile preview
+```
+
+### Build Configuration
+
+```txt
+Android Application ID:
+com.itssanthoshhere.lokalmusicplayer
+
+Version Code:
+1
+
+Android Keystore:
+Generated automatically on Expo servers
+```
+
+### Build Process
+
+```txt
+✔ Using remote Android credentials
+✔ Generated Android Keystore
+✔ Compressed project files
+✔ Uploaded to EAS
+✔ Computed project fingerprint
+✔ Build started successfully
+```
+
+### View Build Logs
+
+```txt
+https://expo.dev/accounts/<username>/projects/<project-name>/builds/<build-id>
+```
+
+---
+
+# Production Builds
+
+### Android
+
+```bash
+eas build --platform android
+```
+
+### iOS
+
+```bash
+eas build --platform ios
+```
+
+### Both Platforms
+
+```bash
+eas build --platform all
+```
+
+---
+
+# Project Stack
+
+```txt
+Framework          : Expo + React Native
+Language           : TypeScript
+Navigation         : React Navigation
+State Management   : Zustand
+Networking         : Axios
+Audio Engine       : Expo Audio
+File System        : Expo File System
+Storage            : MMKV
+Icons              : Expo Vector Icons
+Animations         : React Native Reanimated
+Gestures           : React Native Gesture Handler
+Queue Management   : Draggable FlatList
+UI Styling         : Expo Linear Gradient
+Status Bar         : Expo Status Bar
+Build System       : EAS Build
+```
+
+---
