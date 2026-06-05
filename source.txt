@@ -1,0 +1,124 @@
+# Lokal Music Player — Initial Project Setup
+
+## Create Expo React Native App
+
+```bash
+npx create-expo-app lokal-music-player -t expo-template-blank-typescript
+```
+
+Move into the project directory:
+
+```bash
+cd lokal-music-player
+```
+
+---
+
+# Install State Management & API Packages
+
+```bash
+npm install zustand axios
+```
+
+### Packages
+
+* **Zustand** → Lightweight state management
+* **Axios** → API requests and data fetching
+
+---
+
+# Install React Navigation
+
+```bash
+npm install @react-navigation/native
+npm install @react-navigation/native-stack
+```
+
+---
+
+# Install Navigation Dependencies
+
+```bash
+npx expo install react-native-screens
+npx expo install react-native-safe-area-context
+```
+
+### Packages
+
+* **react-native-screens** → Optimized screen rendering
+* **react-native-safe-area-context** → Safe area handling for modern devices
+
+---
+
+# Install Audio Playback
+
+```bash
+npx expo install expo-av
+```
+
+### Package
+
+* **expo-av** → Audio and video playback support for the music player
+
+---
+
+# Start Development Server
+
+```bash
+npx expo start
+```
+
+---
+
+# Run on Device
+
+### Android
+
+```bash
+npx expo start --android
+```
+
+### iOS
+
+```bash
+npx expo start --ios
+```
+
+### Web
+
+```bash
+npx expo start --web
+```
+
+---
+
+### Android Build
+
+```bash
+eas build --platform android
+```
+
+### iOS Build
+
+```bash
+eas build --platform ios
+```
+
+### Both Platforms
+
+```bash
+eas build --platform all
+```
+
+---
+
+# Project Stack
+
+```txt
+Framework        : Expo + React Native
+Language         : TypeScript
+Navigation       : React Navigation
+State Management : Zustand
+API Client       : Axios
+Audio Playback   : Expo AV
+```
