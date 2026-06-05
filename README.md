@@ -24,7 +24,7 @@
 
 # 📋 Table of Contents
 
-- [� Table of Contents](#-table-of-contents)
+- [📋 Table of Contents](#-table-of-contents)
 - [📖 About The Project](#-about-the-project)
 - [🌟 Bonus Features Implemented](#-bonus-features-implemented)
 - [✨ Features](#-features)
@@ -63,6 +63,7 @@
 - [📱 Running The Project](#-running-the-project)
   - [Android](#android)
   - [iOS](#ios)
+  - [Expo Build Preview](#expo-build-preview)
 - [🔮 Future Enhancements](#-future-enhancements)
 - [👨‍💻 Author](#-author)
     - [V S Santhosh](#v-s-santhosh)
@@ -555,7 +556,7 @@ npx expo run:ios
 
 View the latest Expo build here:
 
-[https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/364dca92-57ba-41d1-a0d8-d3e7a753bf83](https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/364dca92-57ba-41d1-a0d8-d3e7a753bf83)
+[https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/2e73de3f-5589-4be9-aa23-cf393fedc44f](https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/2e73de3f-5589-4be9-aa23-cf393fedc44f)
 
 ---
 
