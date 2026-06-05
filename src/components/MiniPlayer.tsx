@@ -9,6 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePlayerStore } from '../store/playerStore';
 import { getImageUrl, getArtistNames } from '../utils/getImageUrl';
 import { colors, spacing, dimensions, typography, borderRadius } from '../utils/theme';
@@ -22,6 +23,7 @@ type RootStackParamList = {
 
 export const MiniPlayer: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const insets = useSafeAreaInsets();
 
   const currentSong = usePlayerStore((s) => s.currentSong);
   const playbackState = usePlayerStore((s) => s.playbackState);
@@ -50,7 +52,7 @@ export const MiniPlayer: React.FC = () => {
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={[styles.container, { bottom: Math.max(insets.bottom, spacing.sm) }]}
       onPress={() => navigation.navigate('Player')}
       activeOpacity={0.95}
     >

@@ -20,6 +20,7 @@ import { SearchBar } from '../components/SearchBar';
 import { SongOptionsModal } from '../components/SongOptionsModal';
 import { EmptyState } from '../components/EmptyState';
 import { LoadingState } from '../components/LoadingState';
+import { MiniPlayer } from '../components/MiniPlayer';
 import { useDebounce } from '../hooks/useDebounce';
 import { usePlayerStore } from '../store/playerStore';
 import { Song, Artist } from '../types';
@@ -174,6 +175,7 @@ export const HomeScreen: React.FC = () => {
           isVisible={isModalVisible}
           onClose={() => setIsModalVisible(false)}
         />
+        <MiniPlayer />
       </View>
     );
   }
@@ -404,6 +406,7 @@ export const HomeScreen: React.FC = () => {
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
       />
+      <MiniPlayer />
     </View>
   );
 };

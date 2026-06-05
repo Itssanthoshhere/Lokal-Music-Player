@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/navigation/AppNavigator';
-import { MiniPlayer } from './src/components/MiniPlayer';
 import { useAudioSetup } from './src/hooks/useAudioSetup';
 
 const AppContent: React.FC = () => {
@@ -18,9 +17,6 @@ const AppContent: React.FC = () => {
     <View style={styles.container}>
       <NavigationContainer>
         <AppNavigator />
-        <View style={{ bottom: insets.bottom }}>
-          <MiniPlayer />
-        </View>
       </NavigationContainer>
       <StatusBar style="light" />
     </View>
