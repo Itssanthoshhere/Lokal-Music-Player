@@ -551,6 +551,12 @@ npx expo run:ios
 
 > Background playback requires a Development Build and will not work inside Expo Go.
 
+## Expo Build Preview
+
+View the latest Expo build here:
+
+[https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/364dca92-57ba-41d1-a0d8-d3e7a753bf83](https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/364dca92-57ba-41d1-a0d8-d3e7a753bf83)
+
 ---
 
 # 🔮 Future Enhancements
