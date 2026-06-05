@@ -50,15 +50,17 @@ npx expo install react-native-safe-area-context
 
 ---
 
-# Install Audio Playback
+# Install Audio Playback & Persistence
 
 ```bash
-npx expo install expo-av
+npx expo install expo-audio react-native-mmkv react-native-gesture-handler react-native-reanimated react-native-draggable-flatlist
 ```
 
-### Package
+### Packages
 
-* **expo-av** → Audio and video playback support for the music player
+* **expo-audio** → Audio playback and background execution support
+* **react-native-mmkv** → Extremely fast synchronous local storage
+* **react-native-draggable-flatlist** → Drag to reorder support for the queue
 
 ---
 
@@ -120,5 +122,6 @@ Language         : TypeScript
 Navigation       : React Navigation
 State Management : Zustand
 API Client       : Axios
-Audio Playback   : Expo AV
+Audio Playback   : Expo Audio
+Storage          : MMKV
 ```
