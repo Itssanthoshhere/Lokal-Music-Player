@@ -36,7 +36,6 @@ type TopTab = typeof TOP_TABS[number];
 
 export const HomeScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const [activeTab, setActiveTab] = useState<TopTab>('Suggested');
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -179,7 +178,7 @@ export const HomeScreen: React.FC = () => {
     );
   }
 
-  // --- Home / Suggested Mode ---
+  // Home / Suggested
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
