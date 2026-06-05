@@ -24,23 +24,49 @@
 
 # 📋 Table of Contents
 
-- 📖 About The Project
-- 🌟 Bonus Features
-- ✨ Features
-- 🛠️ Tech Stack
-- 🏗️ Architecture
-- ⚖️ Trade-offs & Decisions
-- ✅ Assignment Requirements Checklist
-- 📁 Project Structure
-- 📱 Screens
-- 🧠 State Management
-- 🎧 Audio Playback System
-- 📥 Offline Downloads
-- 🚀 Installation
-- 📱 Running The Project
-- 🔮 Future Enhancements
-- 👨‍💻 Author
-- 📜 License
+- [� Table of Contents](#-table-of-contents)
+- [📖 About The Project](#-about-the-project)
+- [🌟 Bonus Features Implemented](#-bonus-features-implemented)
+- [✨ Features](#-features)
+  - [🎵 Music Search](#-music-search)
+  - [▶️ Audio Playback](#️-audio-playback)
+  - [📱 Mini Player](#-mini-player)
+  - [🎛️ Full Player](#️-full-player)
+  - [📋 Queue Management](#-queue-management)
+  - [💾 Persistence \& Local Storage](#-persistence--local-storage)
+  - [🔒 Background Playback](#-background-playback)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🏗️ Architecture](#️-architecture)
+- [⚖️ Trade-offs \& Decisions](#️-trade-offs--decisions)
+    - [Zustand over Redux Toolkit](#zustand-over-redux-toolkit)
+    - [MMKV over AsyncStorage](#mmkv-over-asyncstorage)
+    - [Expo Audio over Expo AV](#expo-audio-over-expo-av)
+    - [Single Global Player Store](#single-global-player-store)
+    - [Offline Downloads](#offline-downloads)
+- [✅ Assignment Requirements Checklist](#-assignment-requirements-checklist)
+    - [Core Requirements](#core-requirements)
+    - [Bonus Requirements](#bonus-requirements)
+- [📁 Project Structure](#-project-structure)
+- [📱 Screens](#-screens)
+  - [🏠 Home Screen](#-home-screen)
+    - [Features](#features)
+  - [🎵 Full Player Screen](#-full-player-screen)
+  - [📌 Mini Player](#-mini-player-1)
+  - [📋 Queue Screen](#-queue-screen)
+- [🧠 State Management](#-state-management)
+- [🎧 Audio Playback System](#-audio-playback-system)
+- [📥 Offline Downloads](#-offline-downloads)
+- [🚀 Installation](#-installation)
+  - [Clone Repository](#clone-repository)
+  - [Install Dependencies](#install-dependencies)
+  - [Start Development Server](#start-development-server)
+- [📱 Running The Project](#-running-the-project)
+  - [Android](#android)
+  - [iOS](#ios)
+- [🔮 Future Enhancements](#-future-enhancements)
+- [👨‍💻 Author](#-author)
+    - [V S Santhosh](#v-s-santhosh)
+- [📜 License](#-license)
 
 ---
 
