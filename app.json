@@ -31,12 +31,6 @@
       "bundleIdentifier": "com.anonymous.lokal-music-player"
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#121212",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
       "permissions": [
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
