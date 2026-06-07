@@ -16,6 +16,8 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Itssanthoshhere/Lokal-Music-Player)
 
+[![APK](https://img.shields.io/badge/APK-Download%20Build-success?style=for-the-badge&logo=android)](https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/7e136d7a-c9ef-49be-8105-800f68ce2081)
+
 </div>
 
 </div>
@@ -556,7 +558,7 @@ npx expo run:ios
 
 View the latest Expo build here:
 
-[https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/2e73de3f-5589-4be9-aa23-cf393fedc44f](https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/2e73de3f-5589-4be9-aa23-cf393fedc44f)
+[https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/7e136d7a-c9ef-49be-8105-800f68ce2081](https://expo.dev/accounts/itssanthoshhere/projects/lokal-music-player/builds/7e136d7a-c9ef-49be-8105-800f68ce2081)
 
 ---
 
