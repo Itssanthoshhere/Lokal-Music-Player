@@ -12,7 +12,7 @@ interface HorizontalCardProps {
 }
 
 export const HorizontalCard: React.FC<HorizontalCardProps> = ({ song, onPress, onOptionsPress }) => {
-  const imageUrl = getImageUrl(song.image, '500x500') || 'https://via.placeholder.com/150';
+  const imageUrl = getImageUrl(song.image, '500x500') || 'https://placehold.co/150';
   const artistNames = song.artists.primary.map(a => a.name).join(', ') || 'Unknown Artist';
 
   return (

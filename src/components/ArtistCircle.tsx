@@ -10,7 +10,7 @@ interface ArtistCircleProps {
 }
 
 export const ArtistCircle: React.FC<ArtistCircleProps> = ({ artist, onPress }) => {
-  const imageUrl = getImageUrl(artist.image, '500x500') || 'https://via.placeholder.com/150';
+  const imageUrl = getImageUrl(artist.image, '500x500') || 'https://placehold.co/150';
 
   return (
     <TouchableOpacity 
